@@ -5,10 +5,10 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+    "build:prod": "NEXT_PUBLIC_ENV=production next build",
     "start": "next start",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
     "test": "vitest run"
   },
   "dependencies": {
