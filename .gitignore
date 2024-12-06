@@ -39,3 +39,5 @@ coverage/
 # Miscellaneous
 *.tgz
 *.swp
+
+*storybook.log
