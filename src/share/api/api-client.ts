@@ -18,7 +18,6 @@ export const getApiClient = (config?: AxiosRequestConfig) => {
 
 const createApiClient = (config?: AxiosRequestConfig) => {
   const baseURL = process.env.NEXT_PUBLIC_GIT_API_URL
-  console.log('github url ==== ' + baseURL)
   const axiosInstance: AxiosInstance = axios.create({
     baseURL,
     timeout: Number(process.env.REQUEST_TIMEOUT) | 10000,

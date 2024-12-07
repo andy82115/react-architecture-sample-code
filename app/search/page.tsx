@@ -65,9 +65,11 @@ export default function Home() {
       <div className="h-4 w-4"></div>
 
       <div className="h-full w-full overflow-auto">
+        {/* Api Fail の画面 */}
         {fetchState == SearchFetchState.fail && (
           <div className="text-black dark:text-white">data load fail</div>
         )}
+        {/* Api初めてinitの画面 */}
         {fetchState === SearchFetchState.init ||
         fetchState === SearchFetchState.initLoading ? (
           <div className="w-full h-full flex justify-center items-center text-black dark:text-white">
@@ -75,6 +77,7 @@ export default function Home() {
           </div>
         ) : (
           <div className="h-[500px] overflow-auto">
+            {/* Api loading 成功しました画面 */}
             <Virtuoso
               totalCount={repositoryList.length}
               itemContent={(index) => {
