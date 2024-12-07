@@ -3,3 +3,4 @@
 
 2. Build env and import third-party, git action, storybook, lint, preitter,...etc
 3. Buil api service and api unit test
+4. Build basic architecture & Build state controller
