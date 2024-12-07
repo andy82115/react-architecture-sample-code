@@ -55,10 +55,11 @@ npm run dev
 ```
 
 # Introduce of dir
-
 - app // \* Main Pages and App Router
 - components // \* Share Component , Page Component
-- src // _ Business Logic Layer - share // _ Sharing Things. Ex: Api, Local
-  Storage... - search // _ Search page architecture - data // _ Datasource and
-  Repository Implement - domain // * Abstract layer - presenter //*state
-  controller layer
+- src // \* Business Logic Layer
+	- share // \* Sharing Things. Ex: Api, LocalStorage...
+	- search // \* Search page architecture
+		- data // \* Datasource andRepository Implement
+		- domain // \* Abstract layer
+		- presenter // \*  statecontroller layer
