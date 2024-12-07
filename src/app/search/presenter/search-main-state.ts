@@ -127,7 +127,7 @@ export const useSearchStore = create<SearchStore>((set, get) => {
     fetchMoreData: fetchMoreData,
     onExtendToggle: (isExtend) => {
       set({
-        isSearchExtend: !isExtend,
+        isSearchExtend: isExtend,
       })
     },
     checkKeywordAndSearch: async (param: SearchParam) => {

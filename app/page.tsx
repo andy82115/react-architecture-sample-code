@@ -2,12 +2,13 @@
 
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
+import { Routes } from './route-util/routes'
 
 export default function Home() {
   const router = useRouter()
 
   const pushSearchPage = () => {
-    router.push(`/search`)
+    router.push(Routes.SEARCH)
   }
 
   return (
