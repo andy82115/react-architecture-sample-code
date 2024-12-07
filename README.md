@@ -1,4 +1,5 @@
-##　[日本語](./docs/README-jp.md) 
+!!!!　[日本語](./docs/README-JP.md)
+![Japan](https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/jp.png 'Japan')![Japan](https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/jp.png 'Japan')
 
 # Develop Step
 
@@ -57,11 +58,12 @@ npm run dev
 ```
 
 # Introduce of dir
+
 - app // \* Main Pages and App Router
 - components // \* Share Component , Page Component
 - src // \* Business Logic Layer
-	- share // \* Sharing Things. Ex: Api, LocalStorage...
-	- search // \* Search page architecture
-		- data // \* Datasource andRepository Implement
-		- domain // \* Abstract layer
-		- presenter // \*  statecontroller layer
+  - share // \* Sharing Things. Ex: Api, LocalStorage...
+  - search // \* Search page architecture
+    - data // \* Datasource andRepository Implement
+    - domain // \* Abstract layer
+    - presenter // \* statecontroller layer
