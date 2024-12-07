@@ -70,10 +70,7 @@ export const useSearchStore = create<SearchStore>((set, get) => {
 
     searchDebounceTimer = setTimeout(() => {
       set({
-        repositoryList: [],
-        fetchState: SearchFetchState.initLoading,
-        total: 50,
-        currentPage: 1,
+        ..._getInitialState(SearchFetchState.initLoading),
       })
       _requestRepositoryApi(param, 'search again')
     }, 500)
@@ -88,8 +85,6 @@ export const useSearchStore = create<SearchStore>((set, get) => {
       page: currentPage,
     })
 
-    console.log('try to request repository list with' + tag)
-
     const response = await searchRepositoryImpl.getRepositoryList(searchParam)
 
     _updateStateFromResponse(response)
@@ -99,6 +94,7 @@ export const useSearchStore = create<SearchStore>((set, get) => {
   // * API レスポンスに基づいて状態を更新する
   const _updateStateFromResponse = (response: SearchResponse) => {
     const currentRepositoryList = get().repositoryList
+    const currentPage = get().currentPage
 
     const newRepositoryList = [
       ...currentRepositoryList,
@@ -114,17 +110,21 @@ export const useSearchStore = create<SearchStore>((set, get) => {
       repositoryList: newRepositoryList,
       fetchState: newFetchState,
       total: response.total_count,
-      currentPage: get().currentPage + 1,
+      currentPage: currentPage + 1,
     })
   }
+
+  const _getInitialState = (state: SearchFetchState) => ({
+    repositoryList: [],
+    fetchState: state,
+    total: 50,
+    currentPage: 1,
+  })
 
   // * return Zustand define state and function
   // * Zustandの状態および関数を実装する
   return {
-    repositoryList: [],
-    fetchState: SearchFetchState.init,
-    total: 50,
-    currentPage: 1,
+    ..._getInitialState(SearchFetchState.init),
     isSearchExtend: false,
     isCardTransform: false,
     fetchMoreData: fetchMoreData,

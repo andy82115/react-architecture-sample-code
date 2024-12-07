@@ -9,7 +9,9 @@ import {
 import { useSearchParamStore } from '@/src/app/search/presenter/search-param-state'
 import { Virtuoso } from 'react-virtuoso'
 import { useRouter } from 'next/navigation'
-import { Routes, QueryParams, buildQueryParams } from '../route-util/routes'
+import { Routes, QueryParams, buildQueryParams } from '../util/router/routes'
+import { useState, useEffect } from 'react'
+import { ScreenSize } from '../util/screen/screen'
 
 export default function SearchRepository() {
   const {
@@ -27,6 +29,8 @@ export default function SearchRepository() {
 
   const { searchParamState, setSearchParam } = useSearchParamStore()
 
+  const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth)
+
   const router = useRouter()
 
   const pushDetailPage = (repo?: String) => {
@@ -40,8 +44,24 @@ export default function SearchRepository() {
     fetchMoreData(searchParamState)
   }
 
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth)
+      console.log(`screen width = ${screenWidth}`)
+      if (screenWidth < ScreenSize.SM) {
+        onCardTransofrm(true)
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
   return (
-    <div className="pt-[5vh] h-screen flex flex-col items-center sm:items-center w-screen">
+    <div className="pt-[5vh] h-screen w-screen flex flex-col items-center sm:items-center">
       <SearchCard
         isCardTransform={isCardTransform}
         initExtendValue={isSearchExtend}
@@ -81,9 +101,10 @@ export default function SearchRepository() {
             loading
           </div>
         ) : (
-          <div className="h-full w-full overflow-auto">
+          <div className="h-full w-full overflow-y-auto">
             {/* Api loading 成功しました画面 */}
             <Virtuoso
+              className="scrollbar-hide"
               totalCount={repositoryList.length}
               itemContent={(index) => {
                 const repo = repositoryList[index]
@@ -105,11 +126,13 @@ export default function SearchRepository() {
               }}
               endReached={loadMoreItems}
               rangeChanged={({ startIndex, endIndex }) => {
-                console.log(`start index = ${startIndex}, end index = ${endIndex}`)
-                if (startIndex > 1) {
-                  onCardTransofrm(true)
-                } else {
+                console.log(
+                  `start index = ${startIndex}, end index = ${endIndex}`,
+                )
+                if (startIndex < 1 && screenWidth >= ScreenSize.SM) {
                   onCardTransofrm(false)
+                } else {
+                  onCardTransofrm(true)
                 }
               }}
             />

@@ -7,7 +7,7 @@ import {
 } from '@/src/app/detail/presenter/detail-main-state'
 import { useEffect } from 'react'
 import DetailCard from '../../components/detail/detail-card'
-import { QueryParams } from '../route-util/routes'
+import { QueryParams } from '../util/router/routes'
 
 export default function Detail() {
   const searchParams = useSearchParams()

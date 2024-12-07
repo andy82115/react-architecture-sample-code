@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
-import { Routes } from './route-util/routes'
+import { Routes } from './util/router/routes'
 
 export default function Home() {
   const router = useRouter()
