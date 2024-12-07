@@ -7,6 +7,8 @@ type HttpMethod = 'get' | 'post' | 'put' | 'delete'
 
 let apiClientInstance: ReturnType<typeof createApiClient> | null = null
 
+// * Singleton to get ApiClient
+// * ApiClientを取得するシングルトン
 export const getApiClient = (config?: AxiosRequestConfig) => {
   if (!apiClientInstance) {
     apiClientInstance = createApiClient(config)
@@ -49,6 +51,9 @@ const createApiClient = (config?: AxiosRequestConfig) => {
     },
   )
 
+  // * Axios will auto encode parameters, Ex: q=ret+in:name -> q=ret%2Bin%3Aname
+  // * Axiosはパラメータを自動エンコードします、例：q=ret+in:name -> q=ret%2Bin%3Aname
+  // * 自動エンコードする必要がないパラメータを入力する。 [...args]
   const handleAutoEncode = (
     params: Record<string, any>,
     url: string,
@@ -77,7 +82,7 @@ const createApiClient = (config?: AxiosRequestConfig) => {
       finalUrl += `${otherParams}&`
     }
 
-    return finalUrl.substring(0, finalUrl.length - 1) // Removes the last character
+    return finalUrl.substring(0, finalUrl.length - 1)
   }
 
   const request = async <T, D = any>(
@@ -125,14 +130,19 @@ const createApiClient = (config?: AxiosRequestConfig) => {
       order = 'asc',
       page = 1,
       pageSize = 10,
-    }) =>
-      request<SearchResponse>('get', '/search/repositories', undefined, {
-        q: q, // Pass q directly as is (without encoding)
+    }) => {
+      if (q === '') {
+        return Promise.reject(new Error('Keyword empty error'))
+      }      
+        
+      return request<SearchResponse>('get', '/search/repositories', undefined, {
+        q: q,
         sort: sort,
         order: order,
         page: page,
         per_page: pageSize,
-      }),
+      })
+    },
     detail: (repoFullName: string) =>
       request<DetailResponse>('get', `/repos/${repoFullName}`),
   }
