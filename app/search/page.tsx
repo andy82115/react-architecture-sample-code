@@ -9,8 +9,9 @@ import {
 import { useSearchParamStore } from '@/src/app/search/presenter/search-param-state'
 import { Virtuoso } from 'react-virtuoso'
 import { useRouter } from 'next/navigation'
+import { Routes, QueryParams, buildQueryParams } from '../route-util/routes'
 
-export default function Home() {
+export default function SearchRepository() {
   const {
     repositoryList,
     fetchState,
@@ -28,7 +29,8 @@ export default function Home() {
 
   const pushDetailPage = (repo?: String) => {
     if (repo) {
-      router.push(`/detail?repoName=${repo}`)
+      const queryParams = buildQueryParams({ [QueryParams.REPO_NAME]: repo })
+      router.push(`${Routes.DETAIL}${queryParams}`)
     }
   }
 
