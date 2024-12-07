@@ -8,11 +8,7 @@ export default {
 } as Meta
 
 const Template: StoryFn = () => (
-  <NumberInput
-    initValue={0}
-    palceholder='input number'
-    onChange={() => {}}
-  />
+  <NumberInput initValue={0} palceholder="input number" onChange={() => {}} />
 )
 
 export const Default = Template.bind({})
