@@ -19,6 +19,8 @@ type SearchStore = {
   total: number
   currentPage: number
   isSearchExtend: boolean
+  isCardTransform: boolean
+  onCardTransofrm: (isCardTransform: boolean) => void
   onExtendToggle: (isExtend: boolean) => void
   fetchMoreData: (param: SearchParam) => void
   checkKeywordAndSearch: (param: SearchParam) => Promise<void>
@@ -124,11 +126,13 @@ export const useSearchStore = create<SearchStore>((set, get) => {
     total: 50,
     currentPage: 1,
     isSearchExtend: false,
+    isCardTransform: false,
     fetchMoreData: fetchMoreData,
+    onCardTransofrm: (isCardTransform) => {
+      set({ isCardTransform: isCardTransform })
+    },
     onExtendToggle: (isExtend) => {
-      set({
-        isSearchExtend: isExtend,
-      })
+      set({ isSearchExtend: isExtend })
     },
     checkKeywordAndSearch: async (param: SearchParam) => {
       if (param.queryFilter.keyword === '') return
