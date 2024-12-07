@@ -17,7 +17,8 @@ export const getApiClient = (config?: AxiosRequestConfig) => {
 }
 
 const createApiClient = (config?: AxiosRequestConfig) => {
-  const baseURL = process.env.GIT_API_URL
+  const baseURL = process.env.NEXT_PUBLIC_GIT_API_URL
+  console.log('github url ==== ' + baseURL)
   const axiosInstance: AxiosInstance = axios.create({
     baseURL,
     timeout: Number(process.env.REQUEST_TIMEOUT) | 10000,
@@ -29,7 +30,7 @@ const createApiClient = (config?: AxiosRequestConfig) => {
 
   axiosInstance.interceptors.request.use(
     (config) => {
-      const token = process.env.GIT_TOKEN
+      const token = process.env.NEXT_PUBLIC_GIT_TOKEN
       if (token) {
         config.headers['Authorization'] = `Bearer ${token}`
       }
@@ -134,7 +135,7 @@ const createApiClient = (config?: AxiosRequestConfig) => {
       if (q === '') {
         return Promise.reject(new Error('Keyword empty error'))
       }      
-        
+
       return request<SearchResponse>('get', '/search/repositories', undefined, {
         q: q,
         sort: sort,
