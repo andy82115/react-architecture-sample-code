@@ -1,26 +1,24 @@
-##　[日本語](./docs/README-jp.md) 
+# 開発ステップ
 
-# Develop Step
-
-1. Checking doc of Github api
+1. Github apiのドキュメントをチェックする
    [search/repository](https://docs.github.com/en/rest/search/search?apiVersion=2022-11-28#search-repositories)
    ,
    [query detail of "search/repository"](https://docs.github.com/en/search-github/searching-on-github/searching-for-repositories)
 
-2. Build env and import third-party, git action, storybook, lint,
-   preitter,...etc
-3. Build api service and api unit test
-4. Build basic architecture & Build state controller
-5. Build Search Repository UI, ScrollView with bigdata -> (Virtuoso)
-6. Build Detail Repository UI
-7. Double check
-8. Basically Finish
+2. ビルド環境とサードパーティ git action, storybook, lint, preitter,...etc
+3. api serviceとapi単体テストの作成
+4. 基本アーキテクチャの構築とステートコントローラの構築
+5. SearchRepository Page, 資料が多い場合ScrollView -> (Virtuoso)
+6. DetailRepository Pageの作成
+7. ダブルチェック
+8. 基本的にオーケー
+9. その他
 
-# Architecture
+# アーキテクチャ
 
 ![Arch Image](/docs/architecture.jpg)
 
-# How to run this project :sunglasses:
+# このプロジェクトの実行方法 :sunglasses:
 
 Step1
 
@@ -34,7 +32,7 @@ Step2 -> for check storybook
 npm run storybook
 ```
 
-Step3 -> create -> .env.local -> copy below setting
+Step3 -> create -> .env.local -> 以下の設定をコピーする
 
 ```
 NEXT_PUBLIC_GIT_API_URL="https://api.github.com/"
@@ -44,7 +42,7 @@ NEXT_PUBLIC_GIT_TOKEN="PUT YOUR TOKEN AT HERE"
 REQUEST_TIMEOUT=10000
 ```
 
-Step4 -> change Token to your Github Api Token
+Step4 -> トークンをGithub Apiトークンに変更する
 
 ```
 NEXT_PUBLIC_GIT_TOKEN="PUT YOUR TOKEN AT HERE"
