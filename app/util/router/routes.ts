@@ -2,7 +2,7 @@ export const Routes = {
   DETAIL: '/detail',
   SEARCH: '/search',
   HOME: '/',
-} as const
+}
 
 export type RoutePaths = keyof typeof Routes
 

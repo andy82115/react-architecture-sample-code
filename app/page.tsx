@@ -20,11 +20,11 @@ export default function Home() {
           pushSearchPage()
         }}
         whileHover={{
-          scale: 1.5, // Scale up on hover
-          transition: { type: 'spring', stiffness: 300, damping: 20 } // Smooth animation
+          scale: 1.5,
+          transition: { type: 'spring', stiffness: 300, damping: 20 }
         }}
         whileTap={{
-          scale: 0.95, // Slight scale down on tap for interaction feedback
+          scale: 0.95,
         }}
       >
         <motion.div

@@ -1,4 +1,4 @@
-import { getApiClient } from '@/src/share/api/api-client';
+import { getApiClient } from '../../../../share/api/api-client'
 import { DetailRemoteDatasource } from '../../domain/detail-remote-datasource';
 
 export const detailRemoteDatasource: DetailRemoteDatasource = {

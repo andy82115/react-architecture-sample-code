@@ -13,6 +13,13 @@ export enum SearchFetchState {
   max = 'max',
 }
 
+export const SearchStateInitConfig = {
+  repositoryList: [],
+  fetchState: SearchFetchState.init,
+  total: 50,
+  currentPage: 1,
+}
+
 type SearchStore = {
   repositoryList: Item[]
   fetchState: SearchFetchState
@@ -115,10 +122,10 @@ export const useSearchStore = create<SearchStore>((set, get) => {
   }
 
   const _getInitialState = (state: SearchFetchState) => ({
-    repositoryList: [],
+    repositoryList: SearchStateInitConfig.repositoryList,
     fetchState: state,
-    total: 50,
-    currentPage: 1,
+    total: SearchStateInitConfig.total,
+    currentPage: SearchStateInitConfig.currentPage,
   })
 
   // * return Zustand define state and function
