@@ -2,42 +2,45 @@
 
 import React, { useState } from 'react'
 import { RadioGroup } from '@/components/ui/radio-group'
+import { LucideIcon } from 'lucide-react'
 
 type RadioGroupProps = {
   initIndex: number
-  options: string[]
+  icons: LucideIcon[]
   onSelected: (index: number) => void
 }
 
-export default function RadioGroupRow({
-  options,
+export default function RadioGroupRowIcon({
+  icons,
   initIndex,
   onSelected,
 }: RadioGroupProps) {
-  const [selectedValue, setSelectedValue] = useState(options[initIndex])
+  const [selectedValue, setSelectedValue] = useState(initIndex)
 
   return (
     <div className=" dark:bg-gray-800 rounded-lg w-fit">
       <RadioGroup
-        value={selectedValue}
-        onValueChange={setSelectedValue}
+        value={selectedValue.toString()}
+        onValueChange={(value) => {
+          setSelectedValue(Number(value))
+        }}
         className="flex space-x-2 min-w-max p-3"
       >
-        {options.map((value, index) => (
+        {icons.map((IconComponent, index) => (
           <button
-            key={value}
-            className={`p-4 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 relative overflow-hidden whitespace-nowrap
+            key={index}
+            className={`p-1 w-fit h-fit rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 relative overflow-hidden whitespace-nowrap
                 ${
-                  selectedValue === value
+                  selectedValue === index
                     ? 'bg-blue-500 text-white dark:bg-blue-700'
                     : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-200'
                 }`}
             onClick={() => {
-              setSelectedValue(value)
+              setSelectedValue(index)
               onSelected(index)
             }}
           >
-            {value.charAt(0).toUpperCase() + value.slice(1)}
+            <IconComponent className="h-[1rem] w-[1rem]" />
           </button>
         ))}
       </RadioGroup>

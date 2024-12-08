@@ -23,7 +23,6 @@ export default function ExtendToggle({
         onToggle(!isExtend)
         setIsExtend(!isExtend)
       }}
-      className="w-12 h-12 rounded-full items-center justify-center bg-white dark:bg-gray-700 text-black dark:text-white border border-gray-300 dark:border-gray-600"
     >
       {isExtend ? (
         <Minus className="h-[1rem] w-[1rem]" />

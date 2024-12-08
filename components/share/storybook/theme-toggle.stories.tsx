@@ -1,6 +1,6 @@
 import React from 'react'
 import { Meta, StoryFn } from '@storybook/react'
-import { ThemeToggle } from '../theme-toggle'
+import ThemeToggle from '../theme-toggle'
 
 export default {
   title: 'Components/Share/ThemeToggle',

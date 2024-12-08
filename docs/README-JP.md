@@ -53,6 +53,14 @@ Step5
 ```
 npm run dev
 ```
+Step6 -> VSCode "[Better Comments](https://github.com/aaron-bond/better-comments)" プラグインをインストール（任意）
+
+
+# スクリーンテスト
+
+ - [x] iphone 7
+ - [x] android
+ - [x] web site
 
 # Introduce of dir
 - app // \* Main Pages and App Router
