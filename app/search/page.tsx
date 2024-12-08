@@ -115,7 +115,7 @@ export default function SearchRepository() {
             loading
           </div>
         ) : (
-          <div className="h-full w-full overflow-y-auto">
+          <div className="h-full w-full overflow-x-auto">
             {/* Api loading 成功しました画面 */}
             <Virtuoso
               className="scrollbar-hide"
