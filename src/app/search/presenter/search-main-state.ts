@@ -61,7 +61,7 @@ export const useSearchStore = create<SearchStore>((set, get) => {
   const _isFetchAllow = () => {
     const currentState = get().fetchState
     return (
-      currentState !== SearchFetchState.init &&
+      currentState !== SearchFetchState.initLoading &&
       currentState !== SearchFetchState.max &&
       currentState !== SearchFetchState.moreLoading
     )
@@ -70,6 +70,7 @@ export const useSearchStore = create<SearchStore>((set, get) => {
   // *　Refresh data and use new SearchParam to get API Data
   // * データをリフレッシュ。新しいSearchParamを使用して、APIデータを取得する。
   const _searchAgain = async (param: SearchParam) => {
+    console.log('search again', _isFetchAllow())
     if (!_isFetchAllow()) return
 
     if (searchDebounceTimer) {

@@ -8,7 +8,7 @@ export default {
 } as Meta
 
 const Template: StoryFn = (args) => {
-  return <ExtendToggle {...args} isExtendInit={false} onToggle={() => {}} />;
+  return <ExtendToggle {...args} isExtendInit={false} onToggle={() => {}} />
 }
 
-export const Default = Template.bind({});
+export const Default = Template.bind({})

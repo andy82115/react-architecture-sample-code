@@ -8,7 +8,7 @@ export default {
 } as Meta
 
 const Template: StoryFn = () => {
-  return <ThemeToggle />;
+  return <ThemeToggle />
 }
 
-export const Default = Template.bind({});
+export const Default = Template.bind({})

@@ -10,10 +10,10 @@ export default {
 const Template: StoryFn = () => (
   <DetailCard
     imgUrl="https://avatars.githubusercontent.com/u/20925?v=4"
-    repoName='golang/rust'
+    repoName="golang/rust"
     owner="meme"
     describe="meme is a meme coin"
-    language='GoRust coin'
+    language="GoRust coin"
     followers={10}
     stars={10}
     forks={10}

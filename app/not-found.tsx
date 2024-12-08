@@ -19,7 +19,7 @@ export default function NotFoundPage() {
         404 error!!! Go Home Page~
       </Label>
       <div className="w-6 h-6"></div>
-      <Armchair size={50} onClick={pushToHome}/>
+      <Armchair size={50} onClick={pushToHome} />
     </div>
   )
 }

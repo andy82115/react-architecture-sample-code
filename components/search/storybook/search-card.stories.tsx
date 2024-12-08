@@ -30,4 +30,3 @@ const Template: StoryFn = (args) => (
 )
 
 export const Default = Template.bind({})
-
