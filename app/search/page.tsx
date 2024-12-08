@@ -9,7 +9,9 @@ import {
 import { useSearchParamStore } from '@/src/app/search/presenter/search-param-state'
 import { Virtuoso } from 'react-virtuoso'
 import { useRouter } from 'next/navigation'
-import { Routes, QueryParams, buildQueryParams } from '../route-util/routes'
+import { Routes, QueryParams, buildQueryParams } from '../util/router/routes'
+import { useState, useEffect } from 'react'
+import { ScreenSize } from '../util/screen/screen'
 
 export default function SearchRepository() {
   const {
@@ -20,10 +22,14 @@ export default function SearchRepository() {
     fetchMoreData,
     checkKeywordAndSearch,
     isSearchExtend,
+    isCardTransform,
+    onCardTransofrm,
     onExtendToggle,
   } = useSearchStore()
 
   const { searchParamState, setSearchParam } = useSearchParamStore()
+
+  const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth)
 
   const router = useRouter()
 
@@ -38,9 +44,40 @@ export default function SearchRepository() {
     fetchMoreData(searchParamState)
   }
 
+  // * Resize handle for screen. Use debounce prevent update too fast
+  // * 画面に合わせのサイズを変更する。デバウンスを使用して更新が速くなりすぎるの場合を防ぐ
+  // ! ---handle start---
+  let resizeDebounceTimer: NodeJS.Timeout
+
+  const handleResize = () => {
+    clearTimeout(resizeDebounceTimer)
+    resizeDebounceTimer = setTimeout(() => {
+      setScreenWidth(window.innerWidth)
+    }, 200)
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+      clearTimeout(resizeDebounceTimer)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (screenWidth < ScreenSize.MD) {
+      onCardTransofrm(true)
+    } else {
+      onCardTransofrm(false)
+    }
+  }, [screenWidth, onCardTransofrm])
+  // ! ---handle end---
+
   return (
-    <div className="pt-[5vh] flex flex-col items-center sm:items-center w-screen">
+    <div className="pt-[5vh] h-screen w-screen flex flex-col items-center sm:items-center">
       <SearchCard
+        isCardTransform={isCardTransform}
         initExtendValue={isSearchExtend}
         queryFilter={searchParamState.queryFilter}
         onExtendToggle={onExtendToggle}
@@ -66,7 +103,7 @@ export default function SearchRepository() {
 
       <div className="h-4 w-4"></div>
 
-      <div className="h-full w-full overflow-auto">
+      <div className="h-full w-full">
         {/* Api Fail の画面 */}
         {fetchState == SearchFetchState.fail && (
           <div className="text-black dark:text-white">data load fail</div>
@@ -78,9 +115,10 @@ export default function SearchRepository() {
             loading
           </div>
         ) : (
-          <div className="h-[500px] overflow-auto">
+          <div className="h-full w-full overflow-x-auto">
             {/* Api loading 成功しました画面 */}
             <Virtuoso
+              className="scrollbar-hide"
               totalCount={repositoryList.length}
               itemContent={(index) => {
                 const repo = repositoryList[index]
@@ -102,8 +140,13 @@ export default function SearchRepository() {
               }}
               endReached={loadMoreItems}
               rangeChanged={({ startIndex, endIndex }) => {
-                if (startIndex <= 0 && endIndex >= 0) {
-                  ///make SearchCard become another mode
+                console.log(
+                  `start index = ${startIndex}, end index = ${endIndex}`,
+                )
+                if (startIndex < 1 && screenWidth >= ScreenSize.MD) {
+                  onCardTransofrm(false)
+                } else {
+                  onCardTransofrm(true)
                 }
               }}
             />

@@ -56,6 +56,15 @@ Step5
 ```
 npm run dev
 ```
+Step6 -> VSCode "[Better Comments](https://github.com/aaron-bond/better-comments)" plugin install (optional)
+
+
+# Screen fit
+
+ - [x] iphone 7 -> small screen
+ - [x] android
+ - [x] web site
+
 
 # Introduce of dir
 

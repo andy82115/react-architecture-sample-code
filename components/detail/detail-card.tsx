@@ -31,7 +31,7 @@ export default function DetailCard({
   issue,
 }: ResultCardProps) {
   return (
-    <Card className="w-fit px-3 py-3 flex flex-col md:flex-col bg-white dark:bg-gray-800 text-black dark:text-white shadow-md dark:shadow-lg">
+    <Card className="w-fit mx-3 px-3 py-3 flex flex-col md:flex-col bg-white dark:bg-gray-800 text-black dark:text-white shadow-md dark:shadow-lg">
       <CardContent className="p-0 flex flex-col md:flex-row items-center justify-center w-fit">
         <Avatar className="mx-3">
           <AvatarImage src={imgUrl} alt="Ｘ" />
@@ -41,19 +41,19 @@ export default function DetailCard({
         </Avatar>
         <div className="flex flex-col md:flex-row w-full py-6 items-center justify-between">
           <div className="flex flex-col w-fit items-start justify-start">
-            <Label className="text-lg text-black dark:text-white">
+            <Label className="text-lg text-black dark:text-white break-all">
               repo name: {repoName}
             </Label>
             <div className="w-3 h-3" />
-            <Label className="text-lg text-black dark:text-white">
+            <Label className="text-lg text-black dark:text-white break-all">
               owner: {owner}
             </Label>
             <div className="w-3 h-3" />
-            <Label className="text-lg text-black dark:text-white">
+            <Label className="text-lg text-black dark:text-white break-all">
               language: {language}
             </Label>
             <div className="w-3 h-3" />
-            <Label className="text-lg text-black dark:text-white">
+            <Label className="text-lg text-black dark:text-white break-all">
               description: {describe}
             </Label>
           </div>

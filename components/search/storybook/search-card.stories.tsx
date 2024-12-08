@@ -6,11 +6,18 @@ import { createNewSearchParam } from '@/src/app/search/model/search-parameter'
 export default {
   title: 'Components/Search/SearchCard',
   component: SearchCard,
+  argTypes: {
+    isCardTransform: {
+      control: { type: 'boolean' },
+      defaultValue: false,
+    },
+  },
 } as Meta
 
-const Template: StoryFn = () => (
+const Template: StoryFn = (args) => (
   <SearchCard
     initExtendValue={false}
+    isCardTransform={args.isCardTransform}
     queryFilter={createNewSearchParam().queryFilter}
     onExtendToggle={() => {}}
     onFollowerChange={() => {}}
@@ -23,7 +30,4 @@ const Template: StoryFn = () => (
 )
 
 export const Default = Template.bind({})
-// Default.args = {
-//     label: 'Click Me',
-//     onClick: () => alert('Button clicked!'),
-// };
+

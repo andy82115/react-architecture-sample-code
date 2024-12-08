@@ -58,13 +58,13 @@ export const combineQueryString = (filter: QueryFilter): string => {
 }
 
 export const createNewSearchParam = (): SearchParam => {
-    const newQueryFilter = QueryFilterSchema.parse({})
-    const newSearchParam = SearchParamSchema.parse({
-        queryFilter: newQueryFilter
-    })
-  
-    return newSearchParam
-  }
+  const newQueryFilter = QueryFilterSchema.parse({})
+  const newSearchParam = SearchParamSchema.parse({
+    queryFilter: newQueryFilter,
+  })
+
+  return newSearchParam
+}
 
 export const copyQueryFilter = (
   queryFilter: QueryFilter,
