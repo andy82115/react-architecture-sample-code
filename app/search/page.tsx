@@ -46,14 +46,14 @@ export default function SearchRepository() {
 
   // * Resize handle for screen. Use debounce prevent update too fast
   // * 画面に合わせのサイズを変更する。デバウンスを使用して更新が速くなりすぎるの場合を防ぐ
-　// ! ---handle start---
+  // ! ---handle start---
   let resizeDebounceTimer: NodeJS.Timeout
 
   const handleResize = () => {
     clearTimeout(resizeDebounceTimer)
     resizeDebounceTimer = setTimeout(() => {
       setScreenWidth(window.innerWidth)
-    }, 200) // Debounce with 200ms delay
+    }, 200)
   }
 
   useEffect(() => {
@@ -61,7 +61,7 @@ export default function SearchRepository() {
 
     return () => {
       window.removeEventListener('resize', handleResize)
-      clearTimeout(resizeDebounceTimer) // Clean up timeout when component is unmounted
+      clearTimeout(resizeDebounceTimer)
     }
   }, [])
 
@@ -73,7 +73,6 @@ export default function SearchRepository() {
     }
   }, [screenWidth, onCardTransofrm])
   // ! ---handle end---
-
 
   return (
     <div className="pt-[5vh] h-screen w-screen flex flex-col items-center sm:items-center">
