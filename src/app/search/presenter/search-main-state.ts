@@ -92,9 +92,16 @@ export const useSearchStore = create<SearchStore>((set, get) => {
       page: currentPage,
     })
 
-    const response = await searchRepositoryImpl.getRepositoryList(searchParam)
-
-    _updateStateFromResponse(response)
+    try {
+      const response = await searchRepositoryImpl.getRepositoryList(searchParam)
+      _updateStateFromResponse(response)
+    } catch (error) {
+      set({ fetchState: SearchFetchState.fail })
+      throw new Error(
+        'Failed to fetch repository search: ' +
+          (error instanceof Error ? error.message : String(error)),
+      )
+    }
   }
 
   // * Update state based on Api response

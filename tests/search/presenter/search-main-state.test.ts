@@ -5,9 +5,7 @@ import {
   SearchStateInitConfig,
 } from '../../../src/app/search/presenter/search-main-state'
 import { searchRepositoryImpl } from '../../../src/app/search/data/repository/search-repositoryImpl'
-import {
-  createNewSearchParam,
-} from '../../../src/app/search/model/search-parameter'
+import { createNewSearchParam } from '../../../src/app/search/model/search-parameter'
 import { renderHook, act, waitFor } from '@testing-library/react'
 
 vi.mock(
@@ -151,6 +149,33 @@ describe('useSearchStore', () => {
         timeout: 1000,
       },
     )
+  })
+
+  it('should handle fetch repository search failure', async () => {
+    const errorMessage = 'Network Error'
+    vi.mocked(searchRepositoryImpl.getRepositoryList).mockRejectedValue(
+      new Error(errorMessage),
+    )
+
+    const { result } = renderHook(() => useSearchStore(), {
+      initialProps: {
+        fetchState: SearchFetchState.loaded,
+      },
+    })
+
+    const mockSearchParam = createNewSearchParam()
+    mockSearchParam.queryFilter.keyword = 'test'
+
+    await act(async () => {
+      expect(
+        result.current.checkKeywordAndSearch(mockSearchParam),
+      ).rejects.toThrow(`Failed to fetch repository search: ${errorMessage}`)
+    })
+
+    await waitFor(() => {
+      // console.log('fetch repository search fail: ' , result.current)
+      expect(result.current.fetchState).toBe(SearchFetchState.fail)
+    })
   })
 
   it('should not fetch more data when in max state', async () => {
