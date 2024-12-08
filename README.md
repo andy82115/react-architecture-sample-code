@@ -21,6 +21,13 @@
 
 ![Arch Image](/docs/architecture.jpg)
 
+# Render Logic
+
+![Arch Image](/docs/render-logic.jpg)
+
+I didn't use SSR or SSG in this project. 
+Mainly I wanna show up architecture for the Main Function Page (Search Page)
+
 # How to run this project :sunglasses:
 
 Step1
