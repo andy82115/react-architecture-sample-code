@@ -41,7 +41,9 @@ export default function ResultCard({
         <div className="flex flex-col md:flex-row w-full py-6 items-center justify-between">
           {/* describe & repository name */}
           <div className="flex flex-col md:flex-row w-fit items-center justify-center">
-            <Label className="text-lg text-black dark:text-white break-all">{name}</Label>
+            <Label className="text-lg text-black dark:text-white break-all">
+              {name}
+            </Label>
             <div className="w-3 h-3" />
             <Label className="text-sm text-gray-500">{describe}</Label>
           </div>

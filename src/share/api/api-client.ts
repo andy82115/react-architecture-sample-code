@@ -133,7 +133,7 @@ const createApiClient = (config?: AxiosRequestConfig) => {
     }) => {
       if (q === '') {
         return Promise.reject(new Error('Keyword empty error'))
-      }      
+      }
 
       return request<SearchResponse>('get', '/search/repositories', undefined, {
         q: q,

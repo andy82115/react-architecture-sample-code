@@ -21,7 +21,7 @@ export default function Home() {
         }}
         whileHover={{
           scale: 1.5,
-          transition: { type: 'spring', stiffness: 300, damping: 20 }
+          transition: { type: 'spring', stiffness: 300, damping: 20 },
         }}
         whileTap={{
           scale: 0.95,
@@ -32,7 +32,6 @@ export default function Home() {
         >
           Start
         </motion.div>
-        
       </motion.button>
     </div>
   )
