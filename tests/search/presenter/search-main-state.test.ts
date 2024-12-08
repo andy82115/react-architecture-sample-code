@@ -20,7 +20,6 @@ vi.mock(
 )
 
 describe('useSearchStore', () => {
-  // Sample mock data
   const mockSearchResponse = {
     total_count: 100,
     items: [
@@ -79,7 +78,6 @@ describe('useSearchStore', () => {
   })
 
   it('should fetch repository list successfully', async () => {
-    // Mock the API implementation
     vi.mocked(searchRepositoryImpl.getRepositoryList).mockResolvedValue(
       mockSearchResponse,
     )
@@ -156,7 +154,6 @@ describe('useSearchStore', () => {
   })
 
   it('should not fetch more data when in max state', async () => {
-    // Mock the API implementation to simulate max items
     const maxResponse = {
       total_count: 2,
       items: mockSearchResponse.items,

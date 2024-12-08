@@ -1,4 +1,4 @@
-//As pixel
+// ! As pixel
 export const ScreenSize = {
   SM: 640, 
   MD: 768, 
