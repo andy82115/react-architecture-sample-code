@@ -44,6 +44,9 @@ export default function SearchRepository() {
     fetchMoreData(searchParamState)
   }
 
+  // * Resize handle for screen. Use debounce prevent update too fast
+  // * 画面に合わせのサイズを変更する。デバウンスを使用して更新が速くなりすぎるの場合を防ぐ
+　// ! ---handle start---
   let resizeDebounceTimer: NodeJS.Timeout
 
   const handleResize = () => {
@@ -69,6 +72,8 @@ export default function SearchRepository() {
       onCardTransofrm(false)
     }
   }, [screenWidth, onCardTransofrm])
+  // ! ---handle end---
+
 
   return (
     <div className="pt-[5vh] h-screen w-screen flex flex-col items-center sm:items-center">
