@@ -52,17 +52,14 @@ describe('useDetailStore', () => {
       await result.current.fetchRepoData(repoFullName)
     })
 
-    await waitFor(
-      () => {
-        // console.log('fetch repository detail successfully: ' , result.current)
-        expect(result.current.repoData).toEqual(mockDetailResponse)
-        expect(result.current.fetchState).toBe(DetailFetchState.loaded)
-        expect(detailRepositoryImpl.getRepositoryDetail).toHaveBeenCalledWith(
-          repoFullName,
-        )
-      },
-      { timeout: 600 },
-    )
+    await waitFor(() => {
+      // console.log('fetch repository detail successfully: ' , result.current)
+      expect(result.current.repoData).toEqual(mockDetailResponse)
+      expect(result.current.fetchState).toBe(DetailFetchState.loaded)
+      expect(detailRepositoryImpl.getRepositoryDetail).toHaveBeenCalledWith(
+        repoFullName,
+      )
+    })
   })
 
   it('should handle fetch repository detail failure', async () => {
