@@ -44,21 +44,31 @@ export default function SearchRepository() {
     fetchMoreData(searchParamState)
   }
 
-  useEffect(() => {
-    const handleResize = () => {
-      setScreenWidth(window.innerWidth)
-      console.log(`screen width = ${screenWidth}`)
-      if (screenWidth < ScreenSize.SM) {
-        onCardTransofrm(true)
-      }
-    }
+  let resizeDebounceTimer: NodeJS.Timeout
 
+  const handleResize = () => {
+    clearTimeout(resizeDebounceTimer)
+    resizeDebounceTimer = setTimeout(() => {
+      setScreenWidth(window.innerWidth)
+    }, 200) // Debounce with 200ms delay
+  }
+
+  useEffect(() => {
     window.addEventListener('resize', handleResize)
 
     return () => {
       window.removeEventListener('resize', handleResize)
+      clearTimeout(resizeDebounceTimer) // Clean up timeout when component is unmounted
     }
   }, [])
+
+  useEffect(() => {
+    if (screenWidth < ScreenSize.MD) {
+      onCardTransofrm(true)
+    } else {
+      onCardTransofrm(false)
+    }
+  }, [screenWidth, onCardTransofrm])
 
   return (
     <div className="pt-[5vh] h-screen w-screen flex flex-col items-center sm:items-center">
@@ -129,7 +139,7 @@ export default function SearchRepository() {
                 console.log(
                   `start index = ${startIndex}, end index = ${endIndex}`,
                 )
-                if (startIndex < 1 && screenWidth >= ScreenSize.SM) {
+                if (startIndex < 1 && screenWidth >= ScreenSize.MD) {
                   onCardTransofrm(false)
                 } else {
                   onCardTransofrm(true)

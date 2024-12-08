@@ -28,7 +28,7 @@ export default function ResultCard({
 }: ResultCardProps) {
   return (
     <Card
-      className="w-full px-3 py-3 flex flex-col md:px-30 md:flex-col bg-white dark:bg-gray-800 text-black dark:text-white shadow-md dark:shadow-lg"
+      className="w-full px-3 py-3 flex flex-col md:w-full md:px-30 md:flex-col bg-white dark:bg-gray-800 text-black dark:text-white shadow-md dark:shadow-lg"
       onClick={onCardClick}
     >
       <CardContent className="p-0 flex flex-col md:flex-row items-center justify-center w-full">
@@ -41,7 +41,7 @@ export default function ResultCard({
         <div className="flex flex-col md:flex-row w-full py-6 items-center justify-between">
           {/* describe & repository name */}
           <div className="flex flex-col md:flex-row w-fit items-center justify-center">
-            <Label className="text-lg text-black dark:text-white">{name}</Label>
+            <Label className="text-lg text-black dark:text-white break-all">{name}</Label>
             <div className="w-3 h-3" />
             <Label className="text-sm text-gray-500">{describe}</Label>
           </div>
