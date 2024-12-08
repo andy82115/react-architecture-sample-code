@@ -21,7 +21,7 @@ export const useDetailStore = create<DetailStore>((set) => {
     fetchState: DetailFetchState.init,
     fetchRepoData: async (repoFullName: string) => {
       set({ fetchState: DetailFetchState.initLoading })
-      
+
       try {
         const response =
           await detailRepositoryImpl.getRepositoryDetail(repoFullName)
@@ -31,7 +31,10 @@ export const useDetailStore = create<DetailStore>((set) => {
         })
       } catch (error) {
         set({ fetchState: DetailFetchState.fail })
-        throw new Error('Failed to fetch repository detail: ' + error)
+        throw new Error(
+          'Failed to fetch repository detail: ' +
+            (error instanceof Error ? error.message : String(error)),
+        )
       }
     },
   }
