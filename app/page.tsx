@@ -27,7 +27,12 @@ export default function Home() {
           scale: 0.95, // Slight scale down on tap for interaction feedback
         }}
       >
-        Start
+        <motion.div
+          variants={{ hover: { scale: 0.85 }, press: { scale: 1.1 } }}
+        >
+          Start
+        </motion.div>
+        
       </motion.button>
     </div>
   )
