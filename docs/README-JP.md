@@ -18,6 +18,12 @@
 
 ![Arch Image](/docs/architecture.jpg)
 
+# レンダーロジック
+
+![Arch Image](/docs/render-logic.jpg)
+
+今回はSSRもSSGも使わなかった。主Main Function Page (Search Page)のアーキテクチャを表示したい
+
 # このプロジェクトの実行方法 :sunglasses:
 
 Step1
