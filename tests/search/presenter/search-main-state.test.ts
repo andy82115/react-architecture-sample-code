@@ -5,9 +5,7 @@ import {
   SearchStateInitConfig,
 } from '../../../src/app/search/presenter/search-main-state'
 import { searchRepositoryImpl } from '../../../src/app/search/data/repository/search-repositoryImpl'
-import {
-  createNewSearchParam,
-} from '../../../src/app/search/model/search-parameter'
+import { createNewSearchParam } from '../../../src/app/search/model/search-parameter'
 import { renderHook, act, waitFor } from '@testing-library/react'
 
 vi.mock(
@@ -82,10 +80,10 @@ describe('useSearchStore', () => {
       mockSearchResponse,
     )
 
-    const { result } = renderHook(() => useSearchStore(), {
-      initialProps: {
-        fetchState: SearchFetchState.loaded,
-      },
+    const { result } = renderHook(() => useSearchStore())
+
+    act(() => {
+      result.current.forceLoaded()
     })
 
     const mockSearchParam = createNewSearchParam()
@@ -96,18 +94,13 @@ describe('useSearchStore', () => {
       await result.current.checkKeywordAndSearch(mockSearchParam)
     })
 
-    await waitFor(
-      () => {
-        // console.log('Final state:', result.current)
-        expect(result.current.repositoryList).toEqual(mockSearchResponse.items)
-        expect(result.current.fetchState).toBe(SearchFetchState.loaded)
-        expect(result.current.total).toBe(mockSearchResponse.total_count)
-        expect(result.current.currentPage).toBe(2)
-      },
-      {
-        timeout: 1000,
-      },
-    )
+    await waitFor(() => {
+      // console.log('Final state:', result.current)
+      expect(result.current.repositoryList).toEqual(mockSearchResponse.items)
+      expect(result.current.fetchState).toBe(SearchFetchState.loaded)
+      expect(result.current.total).toBe(mockSearchResponse.total_count)
+      expect(result.current.currentPage).toBe(2)
+    })
   })
 
   it('should fetch more data when allowed', async () => {
@@ -115,10 +108,10 @@ describe('useSearchStore', () => {
       mockSearchResponse,
     )
 
-    const { result } = renderHook(() => useSearchStore(), {
-      initialProps: {
-        fetchState: SearchFetchState.loaded,
-      },
+    const { result } = renderHook(() => useSearchStore())
+
+    act(() => {
+      result.current.forceLoaded()
     })
 
     const mockSearchParam = createNewSearchParam()
@@ -128,29 +121,21 @@ describe('useSearchStore', () => {
       await result.current.checkKeywordAndSearch(mockSearchParam)
     })
 
-    await waitFor(
-      () => {
-        // console.log('Final state first:', result.current)
-        expect(result.current.repositoryList.length).toBe(2)
-      },
-      { timeout: 1000 },
-    )
+    await waitFor(() => {
+      // console.log('Final state first:', result.current)
+      expect(result.current.repositoryList.length).toBe(2)
+    })
 
     await act(async () => {
       result.current.fetchMoreData(mockSearchParam)
     })
 
-    await waitFor(
-      () => {
-        // console.log('Final state loadmore:', result.current)
-        expect(result.current.repositoryList.length).toBe(4)
-        expect(result.current.fetchState).toBe(SearchFetchState.loaded)
-        expect(result.current.currentPage).toBe(3)
-      },
-      {
-        timeout: 1000,
-      },
-    )
+    await waitFor(() => {
+      // console.log('Final state loadmore:', result.current)
+      expect(result.current.repositoryList.length).toBe(4)
+      expect(result.current.fetchState).toBe(SearchFetchState.loaded)
+      expect(result.current.currentPage).toBe(3)
+    })
   })
 
   it('should not fetch more data when in max state', async () => {
@@ -171,27 +156,19 @@ describe('useSearchStore', () => {
       await result.current.checkKeywordAndSearch(mockSearchParam)
     })
 
-    await waitFor(
-      () => {
-        // console.log('Final state first:', result.current)
-        expect(result.current.repositoryList.length).toBe(2)
-      },
-      { timeout: 1000 },
-    )
+    await waitFor(() => {
+      // console.log('Final state first:', result.current)
+      expect(result.current.repositoryList.length).toBe(2)
+    })
 
     await act(async () => {
       result.current.fetchMoreData(mockSearchParam)
     })
 
-    await waitFor(
-      () => {
-        // console.log('Final state loadmore:', result.current)
-        expect(result.current.fetchState).toBe(SearchFetchState.max)
-        expect(result.current.repositoryList.length).toBe(4)
-      },
-      {
-        timeout: 1000,
-      },
-    )
+    await waitFor(() => {
+      // console.log('Final state loadmore:', result.current)
+      expect(result.current.fetchState).toBe(SearchFetchState.max)
+      expect(result.current.repositoryList.length).toBe(4)
+    })
   })
 })

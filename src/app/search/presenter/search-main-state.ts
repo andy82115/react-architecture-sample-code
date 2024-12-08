@@ -31,6 +31,7 @@ type SearchStore = {
   onExtendToggle: (isExtend: boolean) => void
   fetchMoreData: (param: SearchParam) => void
   checkKeywordAndSearch: (param: SearchParam) => Promise<void>
+  forceLoaded: () => void
 }
 
 // * funcName -> public function, _funcName -> private function
@@ -69,17 +70,17 @@ export const useSearchStore = create<SearchStore>((set, get) => {
   // *　Refresh data and use new SearchParam to get API Data
   // * データをリフレッシュ。新しいSearchParamを使用して、APIデータを取得する。
   const _searchAgain = async (param: SearchParam) => {
-    if (!_isFetchAllow) return
+    if (!_isFetchAllow()) return
 
     if (searchDebounceTimer) {
       clearTimeout(searchDebounceTimer)
     }
 
-    searchDebounceTimer = setTimeout(() => {
+    searchDebounceTimer = setTimeout(async () => {
       set({
         ..._getInitialState(SearchFetchState.initLoading),
       })
-      _requestRepositoryApi(param, 'search again')
+      await _requestRepositoryApi(param, 'search again')
     }, 500)
   }
 
@@ -92,9 +93,16 @@ export const useSearchStore = create<SearchStore>((set, get) => {
       page: currentPage,
     })
 
-    const response = await searchRepositoryImpl.getRepositoryList(searchParam)
-
-    _updateStateFromResponse(response)
+    try {
+      const response = await searchRepositoryImpl.getRepositoryList(searchParam)
+      _updateStateFromResponse(response)
+    } catch (error) {
+      set({ fetchState: SearchFetchState.fail })
+      throw new Error(
+        'Failed to fetch repository search: ' +
+          (error instanceof Error ? error.message : String(error)),
+      )
+    }
   }
 
   // * Update state based on Api response
@@ -143,7 +151,10 @@ export const useSearchStore = create<SearchStore>((set, get) => {
     },
     checkKeywordAndSearch: async (param: SearchParam) => {
       if (param.queryFilter.keyword === '') return
-      _searchAgain(param)
+      await _searchAgain(param)
+    },
+    forceLoaded: () => {
+      set({ fetchState: SearchFetchState.loaded })
     },
   }
 })
