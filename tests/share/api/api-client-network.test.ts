@@ -6,7 +6,7 @@ import { getApiClient } from '../../../src/share/api/api-client'
 
 // * Skip this test for now as it requires a running API server
 // * 実行中のAPIサーバーが必要なので、このテストはスキップする。
-it.skip('api search repository test', async () => {
+it.skip('should search api return same data type', async () => {
   const apiClient = getApiClient()
 
   const response = await apiClient.getRepository.list({
@@ -28,7 +28,7 @@ it.skip('api search repository test', async () => {
   expect(isSearchResponse(response)).toBe(true)
 })
 
-it.skip('api api deetail repository test', async () => {
+it.skip('should detail api return same data type', async () => {
   const apiClient = getApiClient()
 
   const repoFullName = 'square/retrofit'

@@ -1,4 +1,4 @@
-import { getApiClient } from '@/src/share/api/api-client'
+import { getApiClient } from '../../../../share/api/api-client'
 import { SearchRemoteDatasource } from '../../domain/search-remote-datasource'
 import { SearchParam, combineQueryString } from '../../model/search-parameter'
 
