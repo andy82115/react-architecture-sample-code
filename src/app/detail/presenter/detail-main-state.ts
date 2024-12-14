@@ -1,6 +1,7 @@
 import { DetailResponse } from '@/src/share/api/model/detail-response'
 import { create } from 'zustand'
 import { detailRepositoryImpl } from '../data/repository/detail-reposiotryImpl'
+import { DetailRepository } from '../domain/detail-repository'
 
 export enum DetailFetchState {
   init = 'init',
@@ -16,6 +17,9 @@ type DetailStore = {
 }
 
 export const useDetailStore = create<DetailStore>((set) => {
+  // ! TODO: replace with DI. Using inject to use detailRepositoryImpl
+  const detailRepository: DetailRepository = detailRepositoryImpl
+
   return {
     repoData: null,
     fetchState: DetailFetchState.init,
@@ -24,7 +28,7 @@ export const useDetailStore = create<DetailStore>((set) => {
 
       try {
         const response =
-          await detailRepositoryImpl.getRepositoryDetail(repoFullName)
+          await detailRepository.getRepositoryDetail(repoFullName)
         set({
           fetchState: DetailFetchState.loaded,
           repoData: response,

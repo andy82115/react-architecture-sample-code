@@ -2,6 +2,8 @@ import { SearchResponse } from '@/src/share/api/model/search-response'
 import { SearchParam, copySearchParam } from '../model/search-parameter'
 import { create } from 'zustand'
 import { searchRepositoryImpl } from '../data/repository/search-repositoryImpl'
+import { SearchRepository } from '../domain/search-repository'
+
 import { Item } from '../../../share/api/model/search-response'
 
 export enum SearchFetchState {
@@ -39,6 +41,9 @@ type SearchStore = {
 export const useSearchStore = create<SearchStore>((set, get) => {
   let fetchMoreDebounceTimer: NodeJS.Timeout | null = null
   let searchDebounceTimer: NodeJS.Timeout | null = null
+
+  // ! TODO: use DI to replace the way searchRepositoryImpl been used
+  const seaerchRepository: SearchRepository = searchRepositoryImpl
 
   // * Get more data with debounce setting
   // * デバウンス設定 + もっとデータをもらう
@@ -95,7 +100,7 @@ export const useSearchStore = create<SearchStore>((set, get) => {
     })
 
     try {
-      const response = await searchRepositoryImpl.getRepositoryList(searchParam)
+      const response = await seaerchRepository.getRepositoryList(searchParam)
       _updateStateFromResponse(response)
     } catch (error) {
       set({ fetchState: SearchFetchState.fail })
